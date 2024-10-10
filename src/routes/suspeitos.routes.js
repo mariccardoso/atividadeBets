@@ -79,5 +79,68 @@ suspeitosRoutes.get("/:id", (req, res) => {
     return res.status(200).json(suspeito);
 });
 
+// Rota para atualizar um suspeito pelo id
+suspeitosRoutes.put("/:id", (req, res) => {
+    const { id } = req.params;
+    const { nome, profissao, apostas, nivel} = req.body;
+
+    // Busca um suspeito pelo id no array de suspeitos
+    const suspeito = suspeitos.find((suspects) => suspects.id == id);
+
+    // Verifica se o suspeito foi encontrado
+    if (!suspeito) {
+        return res
+            .status(404)
+            .json({ message: `Suspeito com id ${id} não encontrado!` });
+    }
+
+    // Validação dos campos nome e profissao
+    if (!nome || !profissao) {
+        return res.status(400).send({
+            message: "O nome ou o profissão não foi preenchido, não é possível cadastrar!",
+        });
+    }
+
+    // Validação de nível de suspeita
+    if (nivel != "médio" && nivel != "alto" && nivel != "baixo") {
+        return res.status(400).send({
+            message:
+                "Nível de suspeita inválido, não é possível cadastrar!",
+        });
+    }
+
+    // Validação de envolvimento em apostas 
+    if (apostas != "sim" && apostas != "não") {
+        return res.status(400).send({
+            message:
+                "Valor de apostas inválido (diferente de 'sim' e 'não'), não é possível cadastrar!",
+        });
+    }
+
+    suspeito.nome = nome;
+    suspeito.profissao = profissao;
+    suspeito.apostas = apostas;
+    suspeito.nivel = nivel;
+
+    return res.status(200).json({
+        message: "Suspeito atualizado com sucesso!",
+        suspeito,
+    });
+});
+
+suspeitosRoutes.delete("/:id", (req, res) => {
+    const { id } = req.params;
+
+    // Busca um suspeito pelo id no array de suspeitos
+    const suspeito = suspeitos.find((suspects) => suspects.id == id);
+
+    // Verifica se o suspeito foi encontrado
+    if (!suspeito) {
+        return res
+            .status(404)
+            .json({ message: `suspeito com id ${id} não encontrado!` });
+    }
+})
+
 
 export default suspeitosRoutes;

@@ -19,7 +19,7 @@ suspeitosRoutes.get("/", (req, res) => {
 
 // Rota para cadastrar um novo suspeito
 suspeitosRoutes.post("/", (req, res) => {
-    const { nome, profissao, apostas, nivel} = req.body;
+    const { nome, profissao, apostas, nivel } = req.body;
 
     // Validação dos campos nome e profissao
     if (!nome || !profissao) {
@@ -29,7 +29,7 @@ suspeitosRoutes.post("/", (req, res) => {
     }
 
     // Validação de nível de suspeita
-    if (nivel != "médio" && nivel != "alto" && nivel != "baixo" ) {
+    if (nivel != "médio" && nivel != "alto" && nivel != "baixo") {
         return res.status(400).send({
             message:
                 "Nível de suspeita inválido, não é possível cadastrar!",
@@ -61,5 +61,23 @@ suspeitosRoutes.post("/", (req, res) => {
         novoSuspeito,
     });
 });
+
+// Rota para buscar um suspeito pelo id
+suspeitosRoutes.get("/:id", (req, res) => {
+    const { id } = req.params;
+
+    // Busca um suspeito pelo id no array de suspeitos
+    const suspeito = suspeitos.find((suspect) => suspect.id == id);
+
+    // Verifica se o suspeito foi encontrado
+    if (!suspeito) {
+        return res
+            .status(404)
+            .json({ message: `Suspeito com id ${id} não encontrado!` });
+    }
+
+    return res.status(200).json(suspeito);
+});
+
 
 export default suspeitosRoutes;

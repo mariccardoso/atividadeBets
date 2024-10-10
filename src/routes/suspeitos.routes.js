@@ -97,7 +97,7 @@ suspeitosRoutes.put("/:id", (req, res) => {
     // Validação dos campos nome e profissao
     if (!nome || !profissao) {
         return res.status(400).send({
-            message: "O nome ou o profissão não foi preenchido, não é possível cadastrar!",
+            message: "O nome ou o profissão não foi preenchido, não é possível atualizar!",
         });
     }
 
@@ -105,7 +105,7 @@ suspeitosRoutes.put("/:id", (req, res) => {
     if (nivel != "médio" && nivel != "alto" && nivel != "baixo") {
         return res.status(400).send({
             message:
-                "Nível de suspeita inválido, não é possível cadastrar!",
+                "Nível de suspeita inválido, não é possível atualizar!",
         });
     }
 
@@ -113,7 +113,7 @@ suspeitosRoutes.put("/:id", (req, res) => {
     if (apostas != "sim" && apostas != "não") {
         return res.status(400).send({
             message:
-                "Valor de apostas inválido (diferente de 'sim' e 'não'), não é possível cadastrar!",
+                "Valor de apostas inválido (diferente de 'sim' e 'não'), não é possível atualizar!",
         });
     }
 

@@ -1,0 +1,17 @@
+{
+  "name": "atividadebets",
+  "version": "1.0.0",
+  "description": "Atividade CRUD da disciplina backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "senai",
+    "node",
+    "javacript",
+    "backend"
+  ],
+  "author": "Mariana Cardoso",
+  "license": "MIT"
+}
